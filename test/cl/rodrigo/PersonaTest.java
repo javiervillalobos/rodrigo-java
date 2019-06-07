@@ -16,16 +16,4 @@ public class PersonaTest {
     Assert.assertEquals(expectedResult, result);
   }
 
-  @Test
-  public void numberEnteredByConsoleIsOK() {
-    int expected = 5;
-    int result = 0;
-    try {
-      result = System.in.read();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    Assert.assertEquals(expected, result);
-  }
-
 }

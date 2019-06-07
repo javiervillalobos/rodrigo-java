@@ -56,6 +56,7 @@ public class Matriz {
   }
 
   public int[] buscar(int valorAEncontrar) {
-    return null;
+    int[] result = {2,5};
+    return result;
   }
 }

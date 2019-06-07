@@ -13,13 +13,6 @@ public class MatrizTest {
     Assert.assertEquals(expectedLenght, matriz.length);
   }
 
-  @Test(expected = ArrayIndexOutOfBoundsException.class)
-  public void errorWhenAnArrayNxNByDimensionIsIncorrect() {
-    int dimension = 2;
-    int[][] matriz = new int[dimension][dimension];
-    int valor = matriz[2][2];
-  }
-
   @Test
   public void llenarMatriz2x2()  {
     Matriz matriz = new Matriz(2);
