@@ -1,62 +1,57 @@
 package cl.matrices;
 
-import java.util.Random;
-
 public class Matriz {
 
-  private int[][] arreglo;
+  private int[][] contenido;
+  private int dimension = 0;
+  private String nombre = null;
 
-	public Matriz(int dimension) {
-    arreglo = new int[dimension][dimension];
-	}
-
-	public void llenarAlAzar() {
-    Random random = new Random();
-    for (int row = 0; row < arreglo.length; row++) {
-      for (int col = 0; col < arreglo.length; col++) {
-        int valor = random.nextInt(10) + 1;
-        arreglo[row][col] = valor;
-      }
-    }
+  public Matriz(String nombre, int dimension) {
+    this(dimension);
+    this.nombre = nombre;
   }
 
-	public void llenarContinuo() {
-    int valor = 1;
-    for (int row = 0; row < arreglo.length; row++) {
-      for (int col = 0; col < arreglo.length; col++) {
-        arreglo[row][col] = valor;
-        valor++;
-      }
-    }
+  public Matriz(int dimension) {
+    contenido = new int[dimension][dimension];
+    this.dimension = dimension;
   }
 
-  public int obtenerValor(int rowPos, int colPos) {
-    int colIndex = colPos - 1;
-    int rowIndex = rowPos - 1;
-		return arreglo[rowIndex][colIndex];
+  public int obtenerValor(int fila, int columna) {
+    int colIndex = columna - 1;
+    int rowIndex = fila - 1;
+    return contenido[rowIndex][colIndex];
   }
 
-  @Override
-  public String toString() {
+  public String mostrar() {
     String result = null;
     StringBuilder sb = new StringBuilder();
-    for (int row = 0; row < arreglo.length; row++) {
+    int penultimaPosicion = dimension - 1;
+    for (int row = 0; row < dimension; row++) {
       sb.append("|");
-      for (int col = 0; col < arreglo.length; col++) {
-        int valor = arreglo[row][col];
-        sb.append(valor < 10 ? " " + valor: valor);
-        if (col < arreglo.length - 1) {
+      for (int col = 0; col < dimension; col++) {
+        int valor = contenido[row][col];
+        sb.append(valor);
+        if (col < penultimaPosicion) {
           sb.append(" ");
         }
       }
-      sb.append("|\n");
+      sb.append("|").append(row < penultimaPosicion ? "\n" : "");
     }
     result = sb.toString();
     return result;
   }
 
-  public int[] buscar(int valorAEncontrar) {
-    int[] result = {2,5};
-    return result;
+  public void agregarValor(int fila, int columna, int valor) {
+    int colIndex = columna - 1;
+    int rowIndex = fila - 1;
+    contenido[rowIndex][colIndex] = valor;
+  }
+
+  public int getDimension() {
+    return dimension;
+  }
+
+  public String getNombre() {
+    return nombre;
   }
 }
