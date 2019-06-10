@@ -48,11 +48,12 @@ public class Aplicacion {
 
     Scanner consola = new Scanner(System.in);
     boolean salir = false;
+    int dimension = 0;
     while (!salir) {
       int opcion = aplicacion.preguntaNumerica(consola, "Elija una opción: ");
       if (opcion != -1) {
         switch(opcion) {
-          case 3: 
+          case 5: 
             boolean confirmar = aplicacion.confirmarSalir(consola, menu.obtenerPregunta(opcion));
             if (confirmar) {
               salir = true;
@@ -61,11 +62,17 @@ public class Aplicacion {
             }
             break;
           case 1:
-            int dimension = aplicacion.preguntaNumerica(consola, menu.obtenerPregunta(opcion));
+            dimension = aplicacion.preguntaNumerica(consola, menu.obtenerPregunta(opcion));
             if (dimension > 1) {
               operadorMatrices.crearMatrices(dimension);
               System.out.println("Las 2 matrices de dimensión " + dimension + " han sido creadas");
-              System.out.println(menu.mostrar());
+              Matriz[] matrices = operadorMatrices.getMatrices();
+              for (int indice = 0; indice < matrices.length; indice++) {
+                Matriz matriz = matrices[indice];
+                System.out.println("\nMatriz " + matriz.getNombre());
+                System.out.println(matriz.mostrar());
+              }
+              System.out.println("\n" + menu.mostrar());
             } else {
               System.out.println("Ingrese un valor numérico mayor o igual a 2");
               System.out.println(menu.mostrar());
@@ -92,6 +99,61 @@ public class Aplicacion {
               }
             } else {
               System.out.println("Ingrese un valor numérico mayor o igual a 2");
+              System.out.println(menu.mostrar());
+            }
+            break;
+          case 3:
+            if ((operadorMatrices.getMatrices() == null)) {
+              System.out.println("Aún no han sido creadas las matrices. Ingrese a opción 1");
+              System.out.println(menu.mostrar());
+            } else {
+              Matriz[] matrices = operadorMatrices.getMatrices();
+              operadorMatrices.operaNumerosPrimos(matrices);
+              matrices = operadorMatrices.getMatrices();
+              System.out.println("Matrices transformadas:");
+              for (int indice = 0; indice < matrices.length; indice++) {
+                Matriz matriz = matrices[indice];
+                System.out.println("\nMatriz " + matriz.getNombre());
+                System.out.println(matriz.mostrar());
+              }
+              valor = 1;
+              int[] resultado = operadorMatrices.buscarCoincidencias(valor, operadorMatrices.getMatrices());
+              StringBuilder respuesta = new StringBuilder();
+              int penultimo = matrices.length - 1;
+              for (int indice = 0; indice < matrices.length; indice++) {
+                Matriz matriz = matrices[indice];
+                respuesta.append("Matriz ").append(matriz.getNombre()).append(" = ")
+                  .append(resultado[indice]).append(" valores igual a " + valor).append(indice < penultimo ? " vs ": "");
+              }
+              System.out.println("\nResultado: " + respuesta + "\n");
+              System.out.println(menu.mostrar());
+            }
+            break;
+          case 4:
+            if ((operadorMatrices.getMatrices() == null)) {
+              System.out.println("Aún no han sido creadas las matrices. Ingrese a opción 1");
+              System.out.println(menu.mostrar());
+            } else {
+              dimension = operadorMatrices.getMatrices()[0].getDimension();
+              int[][] resultado = operadorMatrices.buscarCoincidenciasExactas(operadorMatrices.getMatrices());
+              StringBuilder sb = new StringBuilder("Resultados:\n");
+              for (int i = 0; i < dimension; i++) {
+                for (int j = 0; j < dimension; j++) {
+                  valor = resultado[i][j];
+                  if (valor > 0) {
+                    sb.append("\t");
+                    for (int indice = 0; indice < operadorMatrices.getMatrices().length; indice++) {
+                      Matriz matriz = operadorMatrices.getMatrices()[indice];
+                      sb.append("Matriz").append(matriz.getNombre()).append("[")
+                        .append(i + 1).append(", ").append(j + 1).append("]").append("=").append(valor)
+                        .append(indice < operadorMatrices.getMatrices().length - 1 ? " y " : "");
+                    }
+                    sb.append("\n");
+                  }
+                }
+              }
+
+              System.out.println(sb.toString() + "\n");
               System.out.println(menu.mostrar());
             }
             break;

@@ -3,7 +3,7 @@ package cl.matrices;
 public abstract class Hebra extends Thread {
 
   public static enum TIPO {
-    COINCIDENCIA;
+    COINCIDENCIA, PRIMO, DIVISION, COINCIDENCIAEXACTA;
   }
 
   protected Matriz[] matrices;

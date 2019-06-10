@@ -18,7 +18,6 @@ public class HebraCoincidencia extends Hebra {
   }
 
   public void buscarValor() {
-    coincidencias = 0;
     int cantidadMatrices = obtenerCantidadMatrices();
     for (int indiceMatriz = 0; indiceMatriz < cantidadMatrices; indiceMatriz++) {
       Matriz matriz = matrices[indiceMatriz];
